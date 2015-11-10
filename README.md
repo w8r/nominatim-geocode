@@ -42,6 +42,7 @@ nominatim.geocode({
     //]
   }
 });
+```
 
 ## License
 
