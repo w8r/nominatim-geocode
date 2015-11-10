@@ -1,0 +1,49 @@
+{
+  "name": "nominatim-geocode",
+  "version": "1.0.0",
+  "description": "Nominatim geocoding service wrapper",
+  "main": "index.js",
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "experimental": true
+        }
+      ]
+    ]
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./node_modules/.bin/watchify ./example/index.js -o ./example/bundle.js -dv & ./node_modules/.bin/serve -p 3002",
+    "build": "./node_modules/.bin/browserify -s nominatim index.js -o dist/nominatim.js && ./node_modules/.bin/uglifyjs dist/nominatim.js -o dist/nominatim.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/w8r/nominatim-geocode.git"
+  },
+  "keywords": [
+    "nominatim",
+    "geocode",
+    "reverse",
+    "geocode",
+    "osm"
+  ],
+  "author": "Alexander Milevski <info@w8r.name>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/w8r/nominatim-geocode/issues"
+  },
+  "homepage": "https://github.com/w8r/nominatim-geocode#readme",
+  "devDependencies": {
+    "babelify": "^6.4.0",
+    "browserify": "^12.0.1",
+    "serve": "^1.4.0",
+    "uglifyjs": "^2.4.10",
+    "watchify": "^3.6.0"
+  },
+  "dependencies": {
+    "jsonp": "^0.2.0",
+    "query-string": "^3.0.0"
+  }
+}
