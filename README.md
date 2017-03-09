@@ -11,7 +11,7 @@ Wrapper for Nominatim geocoding service. Uses JSONP
 ```javascript
 import nominatim from 'nominatim-geocode';
 
-nominatim.reverse({ lat: 55, lon: 33 }, (err, result) => {
+nominatim.reverse({ lat: 55, lng: 33 }, (err, result) => {
   if(!err) console.log(result);
   // {
   //  address: {...},
