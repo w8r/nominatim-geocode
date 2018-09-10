@@ -1,7 +1,7 @@
-import nominatim from "../";
-const L = global.L;
+import * as nominatim from "../";
+import L from 'leaflet';
 
-global.nominatim = nominatim;
+window.nominatim = nominatim;
 
 const map = L.map('map').setView([52.0780487,4.3043022], 14);
 const tiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {

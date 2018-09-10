@@ -1,41 +1,32 @@
-var jsonp = require('jsonp');
-var qs    = require('query-string');
+import jsonp from 'jsonp';
+import qs    from 'query-string';
 
-var prefix   = 'nominatim_callback_';
-var BASE_URL = 'https://nominatim.openstreetmap.org/';
+const prefix   = 'nominatim_callback_';
+const BASE_URL = 'https://nominatim.openstreetmap.org/';
 
-var cbCounter = 0;
+let cbCounter = 0;
 
-function noop() {}
+const noop = () => {};
 
-function geocode (options, callback, context) {
-  callback = callback || noop;
-  options = options || { q: '' };
-
+export function geocode (options = { q: '' }, callback = noop, context) {
   options.format = 'json';
   options.addressdetails = 1;
 
-  var url = BASE_URL + 'search?' + qs.stringify(options);
-  var name = options.callback || prefix + (cbCounter++);
-  jsonp(url, { prefix: prefix, param: 'json_callback', name: name }, function () {
-    callback.apply(context, arguments);
-    if (name in global) global[name] = undefined;
+  const url = BASE_URL + 'search?' + qs.stringify(options);
+  const name = options.callback || prefix + (cbCounter++);
+  jsonp(url, { prefix, param: 'json_callback', name }, (...args) => {
+    console.log(args)
+    callback.apply(context, args);
   });
 }
 
-function reverse (options, callback, context) {
-  callback = callback || noop;
-  options = options || {};
-
+export function reverse (options = {}, callback = noop, context) {
   options.format = 'json';
   options.addressdetails = 1;
 
-  var url = BASE_URL + 'reverse?' + qs.stringify(options);
-  var name = options.callback || prefix + (cbCounter++);
-  jsonp(url, { prefix: prefix, param: 'json_callback', name: name }, function () {
-    callback.apply(context, arguments);
-    if (name in global) global[name] = undefined;
+  const url  = BASE_URL + 'reverse?' + qs.stringify(options);
+  const name = options.callback || prefix + (cbCounter++);
+  jsonp(url, { prefix, param: 'json_callback', name }, (...args) => {
+    callback.apply(context, args);
   });
 }
-
-module.exports = { geocode: geocode, reverse: reverse };
